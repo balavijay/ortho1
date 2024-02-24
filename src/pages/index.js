@@ -31,7 +31,7 @@ const Page = () => {
   };
 
   async function GetOrthos() {
-    const response = await fetch("http://54.164.163.253:8080/api/ortho/GetOrthos");
+    const response = await fetch("http://54.161.201.248:8080/api/ortho/GetOrthos");
     handleClose();
     const dashboardData = await response.json();
     console.log(dashboardData.OrthoData[0]);

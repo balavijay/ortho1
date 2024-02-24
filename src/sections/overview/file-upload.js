@@ -44,9 +44,9 @@ export const FileUpload = (props) => {
 
     let url = "";
     if (props.from == "dataop") {
-      url = "http://54.164.163.253:8080/api/ortho/UploadScans";
+      url = "http://54.161.201.248:8080/api/ortho/UploadScans";
     } else {
-      url = "http://54.164.163.253:8080/api/ortho/UploadCases";
+      url = "http://54.161.201.248:8080/api/ortho/UploadCases";
     }
 
     const formData = new FormData();
