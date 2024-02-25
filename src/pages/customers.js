@@ -173,18 +173,17 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-const StyledSeverityRed = styled(Dialog)(({  }) => ({
+const StyledSeverityRed = styled(Dialog)(({}) => ({
   fontSize: 22,
   borderWidth: 0,
-  color: "red"
+  color: "red",
 }));
 
-const StyledSeverityGreen = styled(Dialog)(({  }) => ({
+const StyledSeverityGreen = styled(Dialog)(({}) => ({
   fontSize: 22,
   borderWidth: 0,
-  color: "green"
+  color: "green",
 }));
-
 
 const useCustomers = (page, rowsPerPage) => {
   return useMemo(() => {
@@ -223,8 +222,6 @@ const Page = () => {
 
   function toggleFormHandler() {
     setToggleForm(true);
-    
-    
   }
 
   function toggleFormClose() {
@@ -238,30 +235,40 @@ const Page = () => {
   function openLLMResponse() {
     toggleFormClose();
     setToggleLLM(true);
-    
+
     //set setSeverity based on ML output
+    // Severe
     setSeverity(true);
-
-    setChatHistory(`*Findings:* 
-    \n 
-
+    let severeReport = `*Findings:* 
 
     1. *Joint Space Narrowing:* Severe narrowing of the medial and lateral compartments of the knee joint, measuring approximately [specific measurement] mm, consistent with advanced cartilage loss.
+
     2. *Osteophyte Formation:* Large osteophytes present along the joint margins, particularly pronounced in the tibiofemoral and patellofemoral compartments.
+    
     3. *Subchondral Sclerosis:* Diffuse subchondral sclerosis observed throughout the femoral condyles and tibial plateaus, indicative of chronic and advanced osteoarthritic changes.
+    
     4. *Subchondral Cyst Formation:* Multiple large subchondral cysts identified in the weight-bearing regions of the medial and lateral compartments, contributing to joint instability.
+    
     5. *Joint Alignment:* Severe varus deformity noted, with significant angulation of the knee joint axis, leading to altered biomechanics and increased stress on the medial compartment.
+    
     6. *Meniscal Abnormalities:* Extensive meniscal degeneration and tearing, with evidence of meniscal extrusion and loss of meniscal tissue integrity.
+    
     7. *Synovial Changes:* Severe synovial hypertrophy and inflammation, with extensive thickening of the synovial lining and evidence of synovitis.
+    
     8. *Joint Effusion:* Large joint effusion present, indicating ongoing inflammation and intra-articular fluid accumulation.
+    
     *Impression:*
     The imaging findings are consistent with severe osteoarthritis of the knee joint, characterized by advanced cartilage loss, osteophyte formation, subchondral sclerosis, cyst formation, malalignment, meniscal degeneration, synovial hypertrophy, and joint effusion. These changes contribute to significant pain, functional impairment, and reduced quality of life for the patient.
-    ---
+    
+    ------------------------------------------------
     This report provides a comprehensive overview of the radiological manifestations of severe knee osteoarthritis, aiding in clinical decision-making and treatment planning.
     
-    `);
+    `;
+    setChatHistory(severeReport);
 
-    
+    // Normal
+    // setSeverity(false);
+    // setChatHistory(normalReport);
   }
 
   useEffect(() => {
@@ -342,21 +349,21 @@ const Page = () => {
                     top: 8,
                     color: (theme) => theme.palette.grey[500],
                   }}
-                >X</IconButton>
+                >
+                  X
+                </IconButton>
                 <DialogContent dividers>
-                   <FileUpload from={"radiology"} onCompleted={openLLMResponse}></FileUpload> 
-                  
+                  <FileUpload from={"radiology"} onCompleted={openLLMResponse}></FileUpload>
                 </DialogContent>
               </BootstrapDialog>
-
 
               <BootstrapDialog
                 onClose={toggleFormClose}
                 aria-labelledby="customized-dialog-title1"
                 open={toggleLLM}
-                sx={{width: 800}}
+                sx={{ width: 800 }}
               >
-                <DialogTitle sx={{ m: 0, p: 2, }} id="customized-dialog-title1">
+                <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title1">
                   Radiological GenAI Report
                 </DialogTitle>
                 <IconButton
@@ -368,24 +375,20 @@ const Page = () => {
                     top: 8,
                     color: (theme) => theme.palette.grey[500],
                   }}
-                >X</IconButton>
+                >
+                  X
+                </IconButton>
                 <DialogContent dividers>
-                <>
-                {severity && <StyledSeverityRed>Severe:</StyledSeverityRed> }
-                     {!severity && <StyledSeverityGreen>Normal:</StyledSeverityGreen> }
-                     {severity && <div>Severe:</div> }
-                     {!severity && <div>Normal:</div> }
-                     
-                      <span>
-                        {displayResponse} 
-                      </span>
-                    </>
+                  <>
+                    {severity && <StyledSeverityRed>Severe:</StyledSeverityRed>}
+                    {!severity && <StyledSeverityGreen>Normal:</StyledSeverityGreen>}
+                    {severity && <div style={{ color: "red", fontWeight: "bold" }}>Severe:</div>}
+                    {!severity && <div>Normal:</div>}
+
+                    <span style={{ whiteSpace: "pre-line" }}>{displayResponse}</span>
+                  </>
                 </DialogContent>
               </BootstrapDialog>
-
-               
-                    
-                  
 
               <div>
                 <Button

@@ -47,6 +47,7 @@ export const FileUpload = (props) => {
       url = "http://54.161.201.248:8080/api/ortho/UploadScans";
     } else {
       url = "http://54.161.201.248:8080/api/ortho/UploadCases";
+      setMessage("Model is getting trained");
     }
 
     const formData = new FormData();
