@@ -173,17 +173,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-const StyledSeverityRed = styled(Dialog)(({}) => ({
-  fontSize: 22,
-  borderWidth: 0,
-  color: "red",
-}));
-
-const StyledSeverityGreen = styled(Dialog)(({}) => ({
-  fontSize: 22,
-  borderWidth: 0,
-  color: "green",
-}));
+ 
 
 const useCustomers = (page, rowsPerPage) => {
   return useMemo(() => {
@@ -238,7 +228,7 @@ const Page = () => {
 
     //set setSeverity based on ML output
     // Severe
-    setSeverity(true);
+    setSeverity(!severity);
     let severeReport = `*Findings:* 
 
     1. *Joint Space Narrowing:* Severe narrowing of the medial and lateral compartments of the knee joint, measuring approximately [specific measurement] mm, consistent with advanced cartilage loss.
@@ -267,7 +257,31 @@ const Page = () => {
     setChatHistory(severeReport);
 
     // Normal
-    // setSeverity(false);
+    let normalReport = `*Findings:*
+
+    1. *Joint Space Width:* Normal joint space width observed in the medial and lateral compartments, measuring approximately [specific measurement] mm, indicative of intact articular cartilage.
+    
+    2. *Osteophyte Formation:* No osteophytes along the joint margins, with smooth and regular contour of the femoral condyles and tibial plateaus.
+    
+    3. *Subchondral Sclerosis:* No evidence of subchondral sclerosis, with normal bone density observed throughout the knee joint.
+    
+    4. *Subchondral Cyst Formation:* No subchondral cysts identified, indicating absence of significant degenerative changes or joint instability.
+    
+    5. *Joint Alignment:* Normal alignment of the knee joint axis, without evidence of varus or valgus deformity.
+    
+    6. *Meniscal Abnormalities:* Menisci appear intact and well-preserved, with no evidence of degeneration, tearing, or extrusion.
+    
+    7. *Synovial Changes:* Synovium appears normal in thickness and signal intensity, without evidence of hypertrophy, inflammation, or synovitis.
+    
+    8. *Joint Effusion:* No joint effusion identified, indicating absence of intra-articular fluid accumulation or inflammation.
+     
+    *Impression:*
+    The imaging findings demonstrate a normal knee joint, with intact articular cartilage, absence of osteophytes, subchondral sclerosis, cyst formation, malalignment, meniscal abnormalities, synovial changes, or joint effusion. These findings are consistent with a healthy knee joint, without significant degenerative or pathological changes.
+     
+    ------------------------------------------------
+    This report serves to confirm the absence of structural abnormalities or degenerative changes in the knee joint, providing reassurance to the patient and guiding further clinical management if necessary.
+    
+    `
     // setChatHistory(normalReport);
   }
 
@@ -380,10 +394,9 @@ const Page = () => {
                 </IconButton>
                 <DialogContent dividers>
                   <>
-                    {severity && <StyledSeverityRed>Severe:</StyledSeverityRed>}
-                    {!severity && <StyledSeverityGreen>Normal:</StyledSeverityGreen>}
+ 
                     {severity && <div style={{ color: "red", fontWeight: "bold" }}>Severe:</div>}
-                    {!severity && <div>Normal:</div>}
+                    {!severity && <div style={{ color: "green", fontWeight: "bold" }}>Normal:</div>}
 
                     <span style={{ whiteSpace: "pre-line" }}>{displayResponse}</span>
                   </>
